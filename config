@@ -18,6 +18,7 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
+;bruh
 background = #ad222322
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
