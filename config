@@ -1,26 +1,7 @@
-;==========================================================
-;
-;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/polybar/polybar
-;
-;   The README contains a lot of information
-;
-;==========================================================
-
 [colors]
 background = #ad222322
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
+foreground = #dfdfbd
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
@@ -28,33 +9,33 @@ alert = #bd2c40
 
 [bar/example]
 width = 100%
-height = 27
+height = 25
 fixed-center = false
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 1
-line-color = #f00
+line-color = #adae89
 
 border-size = 0
 border-color = #00000000
 
-padding-left = 0
-padding-right = 2
+bottom = false
 
 module-margin-left = 1
 module-margin-right = 1
+module-padding-left = 5
 
-font-0 = "Fira Code SemiBold:size=10;2"
-font-1 = "FiraCode Nerd Font Mono:size=20;5"
+font-0 = "Fira Code SemiBold:size=10;1"
+font-1 = "FiraCode Nerd Font Mono:size=20;4"
 
 ;clock
-font-2 = "FiraCode Nerd Font Mono:size=18;4"
+font-2 = "FiraCode Nerd Font Mono:size=18;3"
 ;filesystem
-font-3 = "FiraCode Nerd Font Mono:size=16;3"
+font-3 = "FiraCode Nerd Font Mono:size=16;2"
 ;battery
-font-4 = "FiraCode Nerd Font Mono:size=12;2"
+font-4 = "FiraCode Nerd Font Mono:size=12;1"
 
 
 modules-left = i3
@@ -78,7 +59,7 @@ interval = 25
 
 mount-0 = /
 format-mounted = <label-mounted>
-format-mounted-underline = #ddff00
+format-mounted-underline = #44ff44
 label-mounted = %{T4}%{T-} %used% (%total%)
 
 label-unmounted = %mountpoint% not mounted
@@ -126,7 +107,7 @@ label-urgent-padding = 2
 [module/xbacklight]
 type = internal/xbacklight
 format = <ramp> <label>
-format-underline = #ffffff
+format-underline = #FFA500
 label = %percentage%%
 ramp-0 = 
 ramp-1 = 
@@ -136,22 +117,22 @@ ramp-2 = 
 [module/cpu]
 type = internal/cpu
 interval = 1
-format-underline = #f90000
+format-underline = #FFFF00
 label =  %percentage:2%%
 
 [module/memory]
 type = internal/memory
 interval = 1
-format-underline = #FFC0CB
-label =  %gb_used% (%gb_total%)
+format-underline = #8B008B
+label =  %gb_used:0:6:B% (%gb_total:0:6:B%)
 
 [module/wlan]
 type = internal/network
 interface = wlo1
 interval = 1
 format-connected = <label-connected>
-format-connected-underline = #00ff00
-label-connected = 直 %essid% :  %upspeed:8%  %downspeed:8%
+format-connected-underline = #4444ff
+label-connected = 直 %essid%
 format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
 label-disconnected = 睊 disconnected
@@ -176,13 +157,13 @@ type = internal/date
 interval = 1
 date = %{T3}%{T-} %d-%m-%y
 time =  %I:%M:%S %p
-format-underline = #0a6cf5
+format-underline = #9932CC
 label = %date% %time%
 
 [module/alsa]
 type = internal/alsa
 format-volume = <label-volume>
-format-volume-underline = #00ffff
+format-volume-underline = #ff0000
 mapped = true
 label-volume = 墳 %percentage%%
 format-muted= ﱝ
@@ -196,17 +177,18 @@ adapter = ACAD
 full-at = 100
 format-charging = <animation-charging> <label-charging>
 label-charging = %percentage%%
-format-charging-underline = #ffb52a
+format-charging-underline = #dfdfbd
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%%
 format-discharging-underline = ${self.format-charging-underline}
-format-full = ${self.ramp-capacity-0} <label-full>
-label-full = %percentage%% (Full)
 ramp-capacity-0 = %{T5}%{T-} 
 ramp-capacity-1 = %{T5}%{T-}
 ramp-capacity-2 = %{T5}%{T-}
 ramp-capacity-3 = %{T5}%{T-}
 ramp-capacity-4 = %{T5}%{T-}
+format-full = <label-full>
+label-full = %{T5}%{T-} %percentage%% (Full)
+format-full-underline = ${self.format-charging-underline}
 animation-charging-0 = ${self.ramp-capacity-0}
 animation-charging-1 = ${self.ramp-capacity-1}
 animation-charging-2 = ${self.ramp-capacity-2}
