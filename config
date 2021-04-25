@@ -63,18 +63,6 @@ modules-right = date memory wlan eth filesystem cpu xbacklight alsa battery
 
 tray-position = right
 tray-padding = 2
-;tray-background = #0063ff
-
-;wm-restack = bspwm
-;wm-restack = i3
-
-;override-redirect = true
-
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -135,22 +123,8 @@ label-urgent-padding = 2
 ; label-separator = |
 
 
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
-
 [module/xbacklight]
 type = internal/xbacklight
-
 format = <ramp> <label>
 format-underline = #ffffff
 label = %percentage%%
@@ -160,47 +134,36 @@ ramp-2 = 
 
 
 [module/cpu]
-
 type = internal/cpu
 interval = 1
-
 format-underline = #f90000
 label =  %percentage:2%%
 
 [module/memory]
-
 type = internal/memory
 interval = 1
-
 format-underline = #FFC0CB
 label =  %gb_used% (%gb_total%)
 
 [module/wlan]
-
 type = internal/network
 interface = wlo1
 interval = 1
-
 format-connected = <label-connected>
 format-connected-underline = #00ff00
 label-connected = 直 %essid% :  %upspeed:8%  %downspeed:8%
-
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = 睊 disconnected
-
-
+format-disconnected = <label-disconnected>
+format-disconnected-underline = ${self.format-connected-underline}
+label-disconnected = 睊 disconnected
 
 [module/eth]
 type = internal/network
 interface = eno1
 interval = 3.0
-
 format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
-
 format-disconnected =
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
@@ -211,66 +174,39 @@ format-disconnected =
 
 type = internal/date
 interval = 1
-
 date = %{T3}%{T-} %d-%m-%y
 time =  %I:%M:%S %p
-
 format-underline = #0a6cf5
 label = %date% %time%
 
 [module/alsa]
-
 type = internal/alsa
-
 format-volume = <label-volume>
 format-volume-underline = #00ffff
 mapped = true
-
 label-volume = 墳 %percentage%%
 format-muted= ﱝ
 format-muted-underline = ${self.format-volume-underline}
 
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/battery]
 type = internal/battery
 battery = BAT1
 adapter = ACAD
 full-at = 100
-
 format-charging = <animation-charging> <label-charging>
 label-charging = %percentage%%
 format-charging-underline = #ffb52a
-
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%%
 format-discharging-underline = ${self.format-charging-underline}
-
 format-full = ${self.ramp-capacity-0} <label-full>
 label-full = %percentage%% (Full)
-
 ramp-capacity-0 = %{T5}%{T-} 
 ramp-capacity-1 = %{T5}%{T-}
 ramp-capacity-2 = %{T5}%{T-}
 ramp-capacity-3 = %{T5}%{T-}
 ramp-capacity-4 = %{T5}%{T-}
-
 animation-charging-0 = ${self.ramp-capacity-0}
 animation-charging-1 = ${self.ramp-capacity-1}
 animation-charging-2 = ${self.ramp-capacity-2}
@@ -280,28 +216,22 @@ animation-charging-framerate = 750
 
 [module/powermenu]
 type = custom/menu
-
 expand-right = true
-
 format-spacing = 1
-
 label-open = 
 label-open-foreground = ${colors.secondary}
 label-close =  cancel
 label-close-foreground = ${colors.secondary}
 label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
-
 menu-0-0 = reboot
 menu-0-0-exec = menu-open-1
 menu-0-1 = power off
 menu-0-1-exec = menu-open-2
-
 menu-1-0 = cancel
 menu-1-0-exec = menu-open-0
 menu-1-1 = reboot
 menu-1-1-exec = sudo reboot
-
 menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
@@ -318,5 +248,3 @@ screenchange-reload = true
 [global/wm]
 margin-top = 5
 margin-bottom = 5
-
-; vim:ft=dosini
