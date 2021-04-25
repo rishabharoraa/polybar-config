@@ -17,8 +17,6 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:color0:#222}
-;bruh
 background = #ad222322
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
@@ -29,12 +27,8 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/example]
-;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 27
-;offset-x = 1%
-;offset-y = 1%
-radius = 0.0
 fixed-center = false
 
 background = ${colors.background}
@@ -52,14 +46,20 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-;font-0 = fixed:pixelsize=10;1
-font-0 = "Hack-regular:size=8"
-font-1 = "JoyPixels:scale=10"
-;font-2 = siji:pixelsize=10;1
+font-0 = "Fira Code SemiBold:size=10;2"
+font-1 = "FiraCode Nerd Font Mono:size=20;5"
+
+;clock
+font-2 = "FiraCode Nerd Font Mono:size=18;4"
+;filesystem
+font-3 = "FiraCode Nerd Font Mono:size=16;3"
+;battery
+font-4 = "FiraCode Nerd Font Mono:size=12;2"
+
 
 modules-left = i3
-;modules-center = mpd
-modules-right = date memory filesystem cpu wlan eth xbacklight alsa battery
+modules-center = xwindow
+modules-right = date memory wlan eth filesystem cpu xbacklight alsa battery
 
 tray-position = right
 tray-padding = 2
@@ -83,55 +83,19 @@ cursor-scroll = ns-resize
 type = internal/xwindow
 label = %title:0:30:...%
 
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
-
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
-
 [module/filesystem]
+
 type = internal/fs
 interval = 25
 
 mount-0 = /
 format-mounted = <label-mounted>
 format-mounted-underline = #ddff00
-label-mounted = 💾 %used% / %total%
-;label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = %{T4}%{T-} %used% (%total%)
+
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
-[module/bspwm]
-type = internal/bspwm
-
-label-focused = %index%
-label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
-label-focused-padding = 2
-
-label-occupied = %index%
-label-occupied-padding = 2
-
-label-urgent = %index%!
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
-
-label-empty = %index%
-label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
-
-; Separator in between workspaces
-; label-separator = |
 
 [module/i3]
 type = internal/i3
@@ -187,74 +151,45 @@ label-song-ellipsis = true
 [module/xbacklight]
 type = internal/xbacklight
 
-format = <ramp><label>
+format = <ramp> <label>
 format-underline = #ffffff
 label = %percentage%%
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
 
-ramp-0 = "🔆 "
-;ramp-0 = 🌕
-;ramp-1 = 🌔
-;ramp-2 = 🌓
-;ramp-3 = 🌒
-;ramp-4 = 🌑
-
-
-;bar-width = 10
-;bar-indicator = |
-;bar-indicator-foreground = #fff
-;bar-indicator-font = 2
-;bar-fill = ─
-;bar-fill-font = 2
-;bar-fill-foreground = #9f78e1
-;bar-empty = ─
-;bar-empty-font = 2
-;bar-empty-foreground = ${colors.foreground-alt}
-;enable-scroll = true
-;scroll-up = exec light -A 5
-;scroll-down = exec light -U 5
-
-[module/backlight-acpi]
-inherit = module/xbacklight
-type = internal/backlight
-card = intel_backlight
 
 [module/cpu]
+
 type = internal/cpu
-interval = 2
-format-prefix = "💻 "
-format-prefix-foreground = ${colors.foreground-alt}
+interval = 1
+
 format-underline = #f90000
-label = %percentage:2%%
+label =  %percentage:2%%
 
 [module/memory]
+
 type = internal/memory
-interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
+interval = 1
+
 format-underline = #FFC0CB
-label = 🧠 %gb_used% / %gb_total%
+label =  %gb_used% (%gb_total%)
 
 [module/wlan]
+
 type = internal/network
 interface = wlo1
-interval = 3.0
+interval = 1
 
 format-connected = <label-connected>
 format-connected-underline = #00ff00
-label-connected = 📡 %essid%
+label-connected = 直 %essid% :  %upspeed:8%  %downspeed:8%
 
-format-disconnected =
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
+;label-disconnected = 睊 disconnected
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = ${colors.foreground-alt}
+
 
 [module/eth]
 type = internal/network
@@ -273,64 +208,28 @@ format-disconnected =
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
+
 type = internal/date
 interval = 1
 
-date = 🕓 %d-%m-%y
-date-alt = " %Y-%m-%d"
+date = %{T3}%{T-} %d-%m-%y
+time =  %I:%M:%S %p
 
-time = %I:%M:%S %p
-time-alt = %H:%M:%S
-
-format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
-
 label = %date% %time%
 
-[module/pulseaudio]
-type = internal/pulseaudio
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
-label-volume-foreground = ${root.foreground}
-
-label-muted = 🔇 muted
-label-muted-foreground = #666
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
-
 [module/alsa]
+
 type = internal/alsa
 
-
-format-volume = <ramp-volume> <label-volume>
+format-volume = <label-volume>
 format-volume-underline = #00ffff
 mapped = true
-ramp-volume-0 = 🔈
-ramp-volume-1 = 🔉
-ramp-volume-2 = 🔊
-label-volume = %percentage%%
-label-volume-foreground = ${root.foreground}
 
-format-muted-prefix = " "
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = sound muted
+label-volume = 墳 %percentage%%
+format-muted= ﱝ
+format-muted-underline = ${self.format-volume-underline}
+
 
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
@@ -353,53 +252,31 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT1
 adapter = ACAD
-full-at = 98
+full-at = 100
 
 format-charging = <animation-charging> <label-charging>
+label-charging = %percentage%%
 format-charging-underline = #ffb52a
 
-format-discharging = <animation-discharging> <label-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
+label-discharging = %percentage%%
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = "⚡ Charged: "
-format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
+format-full = ${self.ramp-capacity-0} <label-full>
+label-full = %percentage%% (Full)
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 =  
-ramp-capacity-foreground = ${colors.foreground-alt}
+ramp-capacity-0 = %{T5}%{T-} 
+ramp-capacity-1 = %{T5}%{T-}
+ramp-capacity-2 = %{T5}%{T-}
+ramp-capacity-3 = %{T5}%{T-}
+ramp-capacity-4 = %{T5}%{T-}
 
-animation-charging-0 = "⚡ Charging: "
-;animation-charging-1 = 
-;animation-charging-2 = 
-animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-0 = ${self.ramp-capacity-0}
+animation-charging-1 = ${self.ramp-capacity-1}
+animation-charging-2 = ${self.ramp-capacity-2}
+animation-charging-3 = ${self.ramp-capacity-3}
+animation-charging-4 = ${self.ramp-capacity-4}
 animation-charging-framerate = 750
-
-animation-discharging-0 = "⚡ On battery: "
-;animation-discharging-1 = 
-;animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
-
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
-
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]
 type = custom/menu
