@@ -1,10 +1,10 @@
 [colors]
 ;background = #ad222322
-background = #222322
+background = #1c1c1c
 background-alt = #444
-foreground = #dfdfbd
+foreground = #c6c6c6
 foreground-alt = #555
-primary = #ffb52a
+primary = #c6c6c6
 secondary = #e60053
 alert = #bd2c40
 
@@ -107,7 +107,7 @@ label-urgent-padding = 2
 [module/xbacklight]
 type = internal/xbacklight
 format = <ramp> <label>
-format-underline = #FFA500
+format-underline = ${colors.primary}
 label = %percentage%%
 ramp-0 = 
 ramp-1 = 
