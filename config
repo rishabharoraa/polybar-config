@@ -1,5 +1,6 @@
 [colors]
-background = #ad222322
+;background = #ad222322
+background = #222322
 background-alt = #444
 foreground = #dfdfbd
 foreground-alt = #555
@@ -9,7 +10,7 @@ alert = #bd2c40
 
 [bar/example]
 width = 100%
-height = 25
+height = 27
 fixed-center = false
 
 background = ${colors.background}
@@ -25,20 +26,20 @@ bottom = false
 
 module-margin-left = 1
 module-margin-right = 1
-font-0 = "Fira Code SemiBold:size=10;1"
-font-1 = "FiraCode Nerd Font Mono:size=20;4"
+font-0 = "Fira Code Semibold:size=10;2"
+font-1 = "FiraCode Nerd Font Mono:size=18;4"
 
 ;clock
-font-2 = "FiraCode Nerd Font Mono:size=18;3"
+font-2 = "FiraCode Nerd Font Mono:size=18;1"
 ;filesystem
 font-3 = "FiraCode Nerd Font Mono:size=16;2"
 ;battery
-font-4 = "FiraCode Nerd Font Mono:size=12;1"
+font-4 = "FiraCode Nerd Font Mono:size=12;2"
 
 
 modules-left = i3
 modules-center = xwindow
-modules-right = date memory wlan eth filesystem cpu xbacklight alsa battery
+modules-right = date wlan eth xbacklight alsa battery
 
 tray-position = right
 
@@ -130,7 +131,7 @@ type = internal/network
 interface = wlo1
 interval = 1
 format-connected = <label-connected>
-format-connected-underline = #4444ff
+format-connected-underline = ${colors.primary}
 label-connected = 直 %essid%
 format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
@@ -154,15 +155,15 @@ format-disconnected =
 
 type = internal/date
 interval = 1
-date = %{T3}%{T-} %d-%m-%y
-time =  %I:%M:%S %p
-format-underline = #9932CC
-label = %date% %time%
+date = %{T2}%{T-} %d-%m-%y
+time = %{T2}%{T-} %I:%M:%S %p
+format-underline = ${colors.primary}
+label = %time% %date%
 
 [module/alsa]
 type = internal/alsa
 format-volume = <label-volume>
-format-volume-underline = #ff0000
+format-volume-underline = ${colors.primary}
 mapped = true
 label-volume = 墳 %percentage%%
 format-muted= ﱝ
@@ -173,10 +174,10 @@ format-muted-underline = ${self.format-volume-underline}
 type = internal/battery
 battery = BAT1
 adapter = ACAD 
-full-at = 100
+full-at = 96
 format-charging = <animation-charging> <label-charging>
 label-charging = %percentage%%
-format-charging-underline = #dfdfbd
+format-charging-underline = ${colors.primary}
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%%
 format-discharging-underline = ${self.format-charging-underline}
@@ -186,7 +187,7 @@ ramp-capacity-2 = %{T5}%{T-}
 ramp-capacity-3 = %{T5}%{T-}
 ramp-capacity-4 = %{T5}%{T-}
 format-full = <label-full>
-label-full = %{T5}%{T-} %percentage%% (Full)
+label-full = %{T5}%{T-} %percentage%%
 format-full-underline = ${self.format-charging-underline}
 animation-charging-0 = ${self.ramp-capacity-0}
 animation-charging-1 = ${self.ramp-capacity-1}
